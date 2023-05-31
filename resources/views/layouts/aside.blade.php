@@ -1,23 +1,21 @@
  <!-- Main Sidebar Container -->
- <aside class="main-sidebar sidebar-dark-primary elevation-4">
+ <aside class="main-sidebar sidebar-white-primary border-right-0 shadow">
 
      <!-- Brand Logo -->
-     <a href="{{ url('') }}" class="brand-link">
-         <img src="/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
-             style="opacity: .8">
-         <span class="brand-text font-weight-light">Base Project</span>
+     <a href="{{ url('') }}" class="brand-link text-center">
+         <span class="brand-text font-weight-bold" style="color: #566A7F; font-size:24px;">smartbilling</span>
      </a>
      <!-- Sidebar -->
      <div class="sidebar">
          <!-- Sidebar user (optional) -->
-         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+         {{-- <div class="user-panel mt-3 pb-3 mb-3 d-flex d-none">
              <div class="image">
                  <img src="/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
              </div>
              <div class="info">
                  <a href="#" class="d-block">{{ auth()->user()->name }}</a>
              </div>
-         </div>
+         </div> --}}
 
          <!-- Sidebar Menu -->
          <nav class="mt-2">
@@ -47,7 +45,7 @@
                                          <li class="nav-item ml-3">
                                              <a href="{{ $sub->link }}" class="nav-link {{ $sub->active }}"
                                                  target="{{ $sub->target }}">
-                                                 <i class="far fa-circle nav-icon"></i>
+                                                 <i class="fas fa-circle nav-icon" style="font-size:10px;"></i>
                                                  <p>{{ $sub->name }}</p>
                                              </a>
                                          </li>

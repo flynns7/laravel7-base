@@ -3,7 +3,7 @@
 @section('content')
     <div class="login-box">
         <div class="login-logo">
-            <a href="{{ url('') }}"><b>Base</b>Laravel</a>
+            <a href="{{ url('') }}">smartbilling</a>
         </div>
 
         <div class="card" id="container-login">
@@ -29,7 +29,7 @@
                     </div>
                     <div class="row">
                         <div class="col-4 offset-8">
-                            <button type="submit" class="btn btn-primary btn-block">Login</button>
+                            <button type="submit" class="btn btn-primary btn-block">Sign in</button>
                         </div>
                     </div>
                 </form>

@@ -8,13 +8,21 @@ use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Yajra\DataTables\DataTables;
+use App\Repositories\MenuRepository;
 
 class MenuController extends AdminController
 {
+    private $repo;
+    
+    function __construct(MenuRepository $repo)
+    {
+        $this->repo = $repo;
+    }
 
     public function index()
     {
         $this->content['features'] = $this->getFeatures();
+        $this->content['listParent'] = $this->repo->getParentMenu();
         $this->content['roles'] = json_encode(
             Role::select('id', 'name')
                 ->where('slug', '!=', 'Superadmin')
@@ -42,14 +50,13 @@ class MenuController extends AdminController
         $data = $request->validate([
             'name' => 'required',
             'type' => 'required',
-            'link_type' => 'required_if:type,menu',
             'endpoint' => 'required_if:link_type,endpoint',
             'link' => 'required_if:link_type,link',
             'feature' => 'required_if:link_type,feature'
         ]);
 
         $link = null;
-        if ($data['type'] == 'menu') {
+        if ($data['type'] == 'menu' && isset($data['link_type'])) {
             switch ($data['link_type']) {
                 case 'endpoint':
                     $link = $data['endpoint'];
@@ -75,7 +82,7 @@ class MenuController extends AdminController
                 ]);
         } else {
             $result = Menu::insert([
-                'parent' => -1,
+                'parent' => $request->post('parent') !== '' ? $request->post('parent') : -1,
                 'name' => $data['name'],
                 'type' => $data['type'],
                 'icon' => $request->post('icon'),

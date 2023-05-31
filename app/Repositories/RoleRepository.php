@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\System\Repositories;
+namespace App\Repositories;
 
 use App\Models\Menu;
 

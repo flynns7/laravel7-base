@@ -58,6 +58,8 @@ Route::prefix('system')
             Route::post('/datatable', 'RoleController@datatable')->name('system-role-datatable');
             Route::post('/store', 'RoleController@store')->name('system-role-store');
             Route::delete('/remove', 'RoleController@destroy')->name('system-role-remove');
+            Route::post('/getRoleMenu', 'RoleController@getCurrentRoleMenu')->name('system-role-getrolemenu');
+            Route::post('/updateRoleMenu', 'RoleController@updateCurrentRoleMenu')->name('system-role-updaterolemenu');
         });
 
         Route::prefix('/user')->group(function () {

@@ -18,14 +18,23 @@
                     <input type="hidden" name="id">
                     <div class="card-body">
                         <div class="form-group">
-                            <label>Label</label>
-                            <input type="text" name="name" class="form-control" placeholder="Label Menu">
-                        </div>
-                        <div class="form-group">
                             <label>Tipe:</label>
                             <select name="type" class="form-control select2" style="width: 100%;">
                                 <option value="menu">Menu</option>
                                 <option value="label">Label</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Label</label>
+                            <input type="text" name="name" class="form-control" placeholder="Label Menu">
+                        </div>
+                        <div class="form-group" id="form-parent">
+                            <label>Parent</label>
+                            <select name="parent" class="form-control select2" style="width: 100%;">
+                                <option value="">Pilih Parent</option>
+                                @foreach ($listParent as $item)
+                                    <option value="{{$item->id}}">{{$item->parent_name ? $item->parent_name." - " : ""}}{{$item->name}}</option>
+                                @endforeach
                             </select>
                         </div>
                         <div class="form-group" id="form-target">
@@ -329,6 +338,8 @@
 
             $('.add').on('click', function() {
                 $("#form-menu").trigger("reset")
+                $("select[name=type]").change()
+                $("select[name=parent]").change()
                 $("input[name=link_type]").prop("checked", false)
                 $('#link').hide();
                 $('#endpoint').hide();
@@ -356,10 +367,12 @@
                     $('#form-target').slideUp()
                     $('#form-icon').slideUp()
                     $('#form-link').slideUp()
+                    $('#form-parent').slideUp()
                 } else {
                     $('#form-target').slideDown()
                     $('#form-icon').slideDown()
                     $('#form-link').slideDown()
+                    $('#form-parent').slideDown()
                 }
             });
 
@@ -520,7 +533,16 @@
                 }
             })
         }
-
+        function renderTable(listIconFiltered) {
+            let contentTable = ``
+            listIconFiltered.forEach(element => {
+                contentTable +=
+                    `<tr style="cursor:pointer;" onclick="setIconValue(this)"><td>${element.icon}</td><td>${element.name}</td></tr>`
+            });
+            $("#table").empty()
+            $("#table").append(contentTable)
+        }
+        
         function setIconValue(element) {
             const iconElement = element.children[0].firstChild
             const iconClassName = iconElement.className

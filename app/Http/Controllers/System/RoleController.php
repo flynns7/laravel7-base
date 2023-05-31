@@ -3,15 +3,24 @@
 namespace App\Http\Controllers\System;
 
 use App\Http\Controllers\AdminController;
+use App\Repositories\RoleRepository;
 use App\Models\Role;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 
 class RoleController extends AdminController
 {
+    private $repo;
+    function __construct(RoleRepository $role)
+    {
+        $this->repo = $role;
+    }
 
     public function index()
     {
+        $dataMenu = $this->repo->getListMenu();
+        $this->setTitle("Pengaturan Role (Developer Only)");
+        $this->content['dataMenu'] = $dataMenu;
         return view('system.role', $this->content);
     }
 
