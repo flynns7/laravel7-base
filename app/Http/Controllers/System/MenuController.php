@@ -56,8 +56,8 @@ class MenuController extends AdminController
         ]);
 
         $link = null;
-        if ($data['type'] == 'menu' && isset($data['link_type'])) {
-            switch ($data['link_type']) {
+        if ($data['type'] == 'menu' && isset($request->link_type)) {
+            switch ($request->link_type) {
                 case 'endpoint':
                     $link = $data['endpoint'];
                     break;
@@ -69,7 +69,7 @@ class MenuController extends AdminController
                     break;
             };
         }
-
+        
         $result = null;
         if ($request->post('id') != null) {
             $result = Menu::where('id', $request->post('id'))
